@@ -1,17 +1,18 @@
-//jshint esversion:6
-
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const _ = require("lodash");
 const mongoose = require("mongoose");
+
 mongoose.connect(
   "mongodb+srv://admin-sk:0759342494@cluster0.jqida.mongodb.net/blogDB"
 );
+
 const postSchema = {
   title: String,
   content: String
 };
+
 const Post = mongoose.model("Post", postSchema);
 
 const homeStartingContent =
@@ -28,13 +29,7 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-// let posts = [];
-
 app.get("/", function (req, res) {
-  // res.render("home", {
-  //   startingContent: homeStartingContent,
-  //   posts: posts
-  //   });
   Post.find({}, (e, posts) => {
     console.log(posts);
     res.render("home", {
